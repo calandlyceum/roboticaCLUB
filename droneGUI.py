@@ -1,4 +1,5 @@
 from tkinter import *
+import math
 # TOET
 scherm = Tk()
 scherm.geometry("100x100")
@@ -15,7 +16,6 @@ canvas.place(x = 0, y = 200)
 
 global stuurder
 stuurder = "slider"
-
 
 def switch_stuurder():
     global stuurder
@@ -51,6 +51,28 @@ foto_maken.place(x = 5, y = 130)
 foto = PhotoImage(file = "blaat.png")
 foto_laten_zien = Button(scherm, image = foto, command = maak_foto)
 foto_laten_zien.place(x = 5, y = 300)
+
+ATTITUDE_HOOGTE = 300
+ATTITUDE_BREEDTE = 400
+middellijnhoogte = ATTITUDE_HOOGTE / 2
+
+attitude_indicator = Canvas(scherm, width=ATTITUDE_BREEDTE, height=ATTITUDE_HOOGTE, background="brown")
+attitude_indicator.place(x = 5, y = 650)
+
+hoek = 80
+
+degtorad = lambda deg: deg * math.pi / 180
+
+AANLIGGENDE = ATTITUDE_BREEDTE / 2
+overstaande = math.tan(degtorad(hoek)) * AANLIGGENDE
+
+attitude_indicator.create_polygon(0, 0, 0, middellijnhoogte + overstaande, ATTITUDE_BREEDTE, middellijnhoogte - overstaande, ATTITUDE_BREEDTE, 0, fill = "cyan")
+
+
+attitude_indicator.create_line(0, middellijnhoogte, ATTITUDE_BREEDTE, middellijnhoogte, fill = "yellow")
+
+
+
 
 
 scherm.mainloop()
