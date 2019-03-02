@@ -53,6 +53,7 @@ foto_laten_zien = Button(scherm, image = foto, command = maak_foto)
 foto_laten_zien.place(x = 5, y = 300)
 from sense_hat import SenseHat
 sense = SenseHat()
+
 def maak_hsi():
     #blaat
     ATTITUDE_HOOGTE = 300
@@ -76,6 +77,7 @@ def bijwerken(scherm, attitude_indicator):
     overstaande = math.tan(degtorad(hoek)) * AANLIGGENDE
 
     attitude_indicator.create_polygon(0, 0, 0, middellijnhoogte + overstaande, ATTITUDE_BREEDTE, middellijnhoogte - overstaande, ATTITUDE_BREEDTE, 0, fill = "cyan")
+    attitude_indicator.create_polygon(0, ATTITUDE_HOOGTE, 0, middellijnhoogte + overstaande, ATTITUDE_BREEDTE, middellijnhoogte - overstaande, ATTITUDE_BREEDTE, ATTITUDE_HOOGTE, fill = "brown")
 
 
     attitude_indicator.create_line(0, middellijnhoogte, ATTITUDE_BREEDTE, middellijnhoogte, fill = "yellow")
