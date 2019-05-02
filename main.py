@@ -2,16 +2,19 @@ from tkinter import *
 import math
 import time
 
-#TODO: NEERSTORT-ALERT, CHECKLIST-AID
+# TODO: NEERSTORT-ALERT, MOTOR-DATA
 
 FPS = 2
 updates_bliep_bloep_geen_naam = int(FPS) * 1000
 
 scherm = Tk()
-scherm.geometry("900x1000")
+afmetingVanScherm = "1250x1000"
+scherm.geometry(afmetingVanScherm)
+scherm.resizable(False, False)
 
+motorkracht = 600
+stuurder = "slider"
 sense_aan = False
-
 checklist = "preflight"
 
 PreFlightChecklistText = "PREFLIGHT: \n \nHDMI > CLEAR\nUSB1 > CLEAR\nUSB2 > CLEAR\n5V > CLEAR\nBACKFEED > CONNECT\nFOTO > TEST\nAREA > CLEAR\nBATTS > CONNECT\nBRIEFING > DONE\nKNOPJES > VAST"
@@ -20,8 +23,6 @@ AfterLandingChecklistText = "AFTER LANDING: \n \n5V > CONNECT\nBACKFEED > DISCON
 
 checklistDisplay = Label(scherm, text=PreFlightChecklistText)
 checklistDisplay.place(x=650, y=5)
-
-
 
 def switch_CHECKLIST():
     global checklist
@@ -52,6 +53,8 @@ def importeer_sense():
 
     except:
         print("Je zit niet op een Pi!")
+    finally:
+        print("sense is wel/niet geimporteerd")
 
 
     time.wait(100)
@@ -60,12 +63,12 @@ def importeer_sense():
 import_sense = Button(scherm, text = "Import Sense.", command = importeer_sense)
 import_sense.place(x = 150, y = 70)
 
-global motorkracht
-motorkracht = Scale(scherm, tickinterval = 40, orient=HORIZONTAL, from_ = 700, to = 1200, length = 600)
-motorkracht.place(x = 5, y = 5)
 
-global stuurder
-stuurder = "slider"
+
+
+#global motorkracht
+#motorkracht = Scale(scherm, tickinterval = 40, orient=HORIZONTAL, from_ = 700, to = 1200, length = 600)
+#motorkracht.place(x = 5, y = 5)
 
 def switch_stuurder():
     global stuurder
@@ -84,6 +87,239 @@ def switch_stuurder():
 
 def maak_foto():
     print("foto gemaakt!!")
+
+
+#Alles met motor-data hieronder
+
+
+motor1speed = 10
+motor2speed = 10
+motor3speed = 10
+motor4speed = 10
+motor5speed = 10
+motor6speed = 10
+
+#Motor Displays
+motor1display = Label(scherm, text="Engine 1:\n" + str(motor1speed))
+motor1display.place(x=950, y=325)
+
+motor2display = Label(scherm, text="Engine 2:\n" + str(motor2speed))
+motor2display.place(x=950, y=375)
+
+motor3display = Label(scherm, text="Engine 3:\n" + str(motor3speed))
+motor3display.place(x=950, y=425)
+
+motor4display = Label(scherm, text="Engine 4:\n" + str(motor4speed))
+motor4display.place(x=950, y=475)
+
+motor5display = Label(scherm, text="Engine 5:\n" + str(motor5speed))
+motor5display.place(x=950, y=525)
+
+motor6display = Label(scherm, text="Engine 6:\n" + str(motor6speed))
+motor6display.place(x=950, y=675)
+
+
+
+motor1trim = 0
+motor2trim = 0
+motor3trim = 0
+motor4trim = 0
+motor5trim = 0
+motor6trim = 0
+
+def update_motor1data():
+    global motor1speed
+    motor1speed = motorkracht + motor1trim
+    motor1display.configure(text="Engine 1:\n" + str(motor1speed))
+
+def update_motor2data():
+    global motor2speed
+    motor2speed = motorkracht + motor2trim
+    motor2display.configure(text="Engine 2:\n" + str(motor2speed))
+
+def update_motor3data():
+    global motor3speed
+    motor3speed = motorkracht + motor3trim
+    motor3display.configure(text="Engine 3:\n" + str(motor3speed))
+
+def update_motor4data():
+    global motor4speed
+    motor4speed = motorkracht + motor4trim
+    motor4display.configure(text="Engine 4:\n" + str(motor4speed))
+
+def update_motor5data():
+    global motor5speed
+    motor5speed = motorkracht + motor5trim
+    motor5display.configure(text="Engine 5:\n" + str(motor5speed))
+
+def update_motor6data():
+    global motor6speed
+    motor6speed = motorkracht + motor6trim
+    motor6display.configure(text="Engine 6:\n" + str(motor6speed))
+
+update_motor1data()
+update_motor2data()
+update_motor3data()
+update_motor4data()
+update_motor5data()
+update_motor6data()
+
+motor3speed = motorkracht + motor3trim
+motor4speed = motorkracht + motor4trim
+motor5speed = motorkracht + motor5trim
+motor6speed = motorkracht + motor6trim
+
+def motor1trim_meer():
+    global motor1trim
+    motor1trim = motor1trim + 10
+    update_motor1data()
+
+def motor1trim_minder():
+    global motor1trim
+    motor1trim = motor1trim - 10
+    update_motor1data()
+
+def motor2trim_meer():
+    global motor2trim
+    motor2trim = motor2trim + 10
+    update_motor2data()
+
+def motor2trim_minder():
+    global motor2trim
+    motor2trim = motor2trim - 10
+    update_motor2data()
+
+def motor3trim_meer():
+    global motor3trim
+    motor3trim = motor3trim + 10
+    update_motor3data()
+
+def motor3trim_minder():
+    global motor3trim
+    motor3trim = motor3trim - 10
+    update_motor3data()
+
+def motor4trim_meer():
+    global motor4trim
+    motor4trim = motor4trim + 10
+    update_motor4data()
+
+def motor4trim_minder():
+    global motor4trim
+    motor4trim = motor4trim - 10
+    update_motor4data()
+
+def motor5trim_meer():
+    global motor5trim
+    motor5trim = motor5trim + 10
+    update_motor5data()
+
+def motor5trim_minder():
+    global motor5trim
+    motor5trim = motor5trim - 10
+    update_motor5data()
+
+def motor6trim_meer():
+    global motor6trim
+    motor6trim = motor6trim + 10
+    update_motor6data()
+
+def motor6trim_minder():
+    global motor6trim
+    motor6trim = motor6trim - 10
+    update_motor6data()
+
+
+def update_alle_motoren():
+    update_motor1data()
+    update_motor2data()
+    update_motor3data()
+    update_motor4data()
+    update_motor5data()
+    update_motor6data()
+
+motor1meerTrim = Button(scherm, text = "10 meer trim", command= motor1trim_meer)
+motor1meerTrim.place(x= 1005, y=325)
+
+motor1minderTrim = Button(scherm, text = "10 minder trim", command= motor1trim_minder)
+motor1minderTrim.place(x=1105, y=325)
+
+motor2meerTrim = Button(scherm, text = "10 meer trim", command= motor2trim_meer)
+motor2meerTrim.place(x= 1005, y=375)
+
+motor2minderTrim = Button(scherm, text = "10 minder trim", command= motor2trim_minder)
+motor2minderTrim.place(x=1105, y=375)
+
+motor3meerTrim = Button(scherm, text = "10 meer trim", command= motor3trim_meer)
+motor3meerTrim.place(x= 1005, y=425)
+
+motor3minderTrim = Button(scherm, text = "10 minder trim", command= motor3trim_minder)
+motor3minderTrim.place(x=1105, y=425)
+
+motor4meerTrim = Button(scherm, text = "10 meer trim", command= motor4trim_meer)
+motor4meerTrim.place(x= 1005, y=475)
+
+motor4minderTrim = Button(scherm, text = "10 minder trim", command= motor4trim_minder)
+motor4minderTrim.place(x=1105, y=475)
+
+motor5meerTrim = Button(scherm, text = "10 meer trim", command= motor5trim_meer)
+motor5meerTrim.place(x= 1005, y=525)
+
+motor5minderTrim = Button(scherm, text = "10 minder trim", command= motor5trim_minder)
+motor5minderTrim.place(x=1105, y=525)
+
+motor6meerTrim = Button(scherm, text = "10 meer trim", command= motor6trim_meer)
+motor6meerTrim.place(x= 1005, y=575)
+
+motor6minderTrim = Button(scherm, text = "10 minder trim", command= motor6trim_minder)
+motor6minderTrim.place(x=1105, y=575)
+
+
+
+def motorBeetjeMinder():
+    global motorkracht
+    motorkracht = motorkracht - 10
+    motorkracht_label.configure(text=str(motorkracht))
+    update_alle_motoren()
+
+def motorVeelMinder():
+    global motorkracht
+    motorkracht = motorkracht - 100
+    motorkracht_label.configure(text=str(motorkracht))
+    update_alle_motoren()
+
+def motorBeetjeMeer():
+    global motorkracht
+    motorkracht = motorkracht + 10
+    motorkracht_label.configure(text=str(motorkracht))
+    update_alle_motoren()
+
+def motorVeelMeer():
+    global motorkracht
+    motorkracht = motorkracht + 100
+    motorkracht_label.configure(text=str(motorkracht))
+    update_alle_motoren()
+
+beetje_minder = Button(scherm, text="10 minder", command=motorBeetjeMinder)
+beetje_minder.place(x=5, y=40)
+
+veel_minder = Button(scherm, text="100 minder", command=motorVeelMinder)
+veel_minder.place(x=5, y=5)
+
+beetje_meer = Button(scherm, text="10 meer", command=motorBeetjeMeer)
+beetje_meer.place(x=200, y=40)
+
+veel_meer = Button(scherm, text="100 meer", command=motorVeelMeer)
+veel_meer.place(x=200, y=5)
+
+motorkracht = 600
+
+motorkracht_label = Label(scherm, text=motorkracht)
+motorkracht_label.place(x=100, y=5)
+
+
+
+#Hier niet meer over motor-data
 
 global label1
 label1 = Label(scherm, text = stuurder)
@@ -115,12 +351,12 @@ VoltState.place(x=450, y=200)
 VoltBackfeedState = Label(scherm, text="Backfeed: " + "--------x--------")
 VoltBackfeedState.place(x=450, y=220)
 
-global HDMI
-HDMI = "aan"
-USB1 = "aan"
-USB2 = "aan"
-Volt = "aan"
-Backfeedbloep = "uit"
+
+HDMI = "uit"
+USB1 = "uit"
+USB2 = "uit"
+Volt = "uit"
+Backfeedbloep = "aan"
 
 
 def switch_HDMI():
@@ -285,7 +521,7 @@ attitude_indicator.create_polygon(0, 0, 0, middellijnhoogte + overstaande, ATTIT
 attitude_indicator.create_line(0, middellijnhoogte, ATTITUDE_BREEDTE, middellijnhoogte, fill = "yellow")
 
 def maak_hsi():
-    print("deze functie is buiten gebruik!")
+   pass
 
 def bijwerken(scherm, attitude_indicator):
     maak_hsi()
